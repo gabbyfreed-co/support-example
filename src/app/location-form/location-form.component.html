@@ -1,0 +1,55 @@
+<dx-form
+  [(formData)]="smartySheetsAddress"
+  [readOnly]="readOnly"
+  [colCount]="14"
+  labelLocation="top"
+  [showColonAfterLabel]="false"
+  #form
+>
+  <dxi-item dataField="streetName" [label]="{ text: 'Street Name' }" [colSpan]="12">
+    <div *dxTemplate>
+      <app-street-name
+        [isReadonly]="readOnly"
+      ></app-street-name>
+    </div>
+    <dxi-validation-rule type="required" message="Value is required"></dxi-validation-rule>
+  </dxi-item>
+  <dxi-item dataField="apt" [label]="{ text: 'Apt/Suite' }" [colSpan]="2"></dxi-item>
+  <dxi-item dataField="city" [label]="{ text: 'City' }" [colSpan]="4">
+    <dxi-validation-rule type="required" message="Value is required"></dxi-validation-rule>
+  </dxi-item>
+  <dxi-item [label]="{ text: 'State' }" [colSpan]="2">
+    <div *dxTemplate>
+      <dx-select-box
+        [readOnly]="readOnly"
+        [items]="states"
+        displayExpr="code"
+        [(value)]="smartySheetsAddress.stateCode"
+        valueExpr="code"
+        [searchEnabled]="true"
+        [searchExpr]="['code', 'description']"
+      >
+        <div *dxTemplate="let data of 'item'">
+          {{ data?.description }}
+        </div>
+      </dx-select-box>
+    </div>
+    <dxi-validation-rule type="required" message="Value is required"></dxi-validation-rule>
+  </dxi-item>
+  <dxi-item dataField="zipCode" [colSpan]="3" [label]="{ text: 'Zip Code' }" [editorOptions]="{ maxLength: 12 }">
+    <dxi-validation-rule type="required" message="Value is required"></dxi-validation-rule>
+  </dxi-item>
+  <dxi-item
+    dataField="county"
+    editorType="dxAutocomplete"
+    [colSpan]="5"
+    [label]="{ text: 'County' }"
+    [editorOptions]="{
+      items: counties,
+      valueExpr: 'name',
+      displayExpr: 'name',
+      searchExpr: ['code', 'name']
+    }"
+  ></dxi-item>
+</dx-form>
+

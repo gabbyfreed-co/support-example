@@ -1,0 +1,28 @@
+<dx-drop-down-box
+  #dropDownBox
+  [value]="value"
+  [showDropDownButton]="false"
+  [openOnFieldClick]="false"
+  fieldTemplate="field"
+  [deferRendering]="false"
+  [readOnly]="isReadonly"
+>
+  <div *dxTemplate="let data of 'field'">
+    <div class="custom-item">
+      <dx-text-box
+        [value]="data"
+        [readOnly]="isReadonly"
+      >
+      </dx-text-box>
+    </div>
+  </div>
+
+  <div *dxTemplate="let data of 'content'">
+    <dx-tree-view
+      class="smarty-streets__list"
+      [dataSource]="listItems || []"
+    >
+    </dx-tree-view>
+  </div>
+</dx-drop-down-box>
+
